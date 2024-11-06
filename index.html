@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mirosława Kołodziejczyk">
+<meta name="dcterms.date" content="2024-11-06">
+
+<title>GRR - | Gauge Repeatability and Reproducibility | (GR&amp;R) Study | for Destructive Measurements</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #dee1e3;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #dee1e3;
+background: #086A87;
+      }
+</style>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">GRR</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title"><div class="line-block">Gauge Repeatability and Reproducibility<br>
+(GR&amp;R) Study<br>
+for Destructive Measurements</div></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Mirosława Kołodziejczyk </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 6, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#problem-to-solve" id="toc-problem-to-solve" class="nav-link active" data-scroll-target="#problem-to-solve">Problem to solve</a>
+  <ul class="collapse">
+  <li><a href="#measurement-system" id="toc-measurement-system" class="nav-link" data-scroll-target="#measurement-system">Measurement system</a></li>
+  <li><a href="#method-of-solution" id="toc-method-of-solution" class="nav-link" data-scroll-target="#method-of-solution">Method of solution</a></li>
+  <li><a href="#acceptance-criteria-for-measurement-systems-analysis" id="toc-acceptance-criteria-for-measurement-systems-analysis" class="nav-link" data-scroll-target="#acceptance-criteria-for-measurement-systems-analysis">Acceptance criteria for measurement systems analysis</a></li>
+  </ul></li>
+  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used">Packages used</a></li>
+  <li><a href="#results-of-measurements" id="toc-results-of-measurements" class="nav-link" data-scroll-target="#results-of-measurements">Results of measurements</a>
+  <ul class="collapse">
+  <li><a href="#reading-data" id="toc-reading-data" class="nav-link" data-scroll-target="#reading-data">Reading data</a></li>
+  <li><a href="#measurements" id="toc-measurements" class="nav-link" data-scroll-target="#measurements">Measurements</a></li>
+  </ul></li>
+  <li><a href="#anova-analysis" id="toc-anova-analysis" class="nav-link" data-scroll-target="#anova-analysis">ANOVA analysis</a>
+  <ul class="collapse">
+  <li><a href="#anova-table" id="toc-anova-table" class="nav-link" data-scroll-target="#anova-table">ANOVA table</a></li>
+  <li><a href="#grr-table" id="toc-grr-table" class="nav-link" data-scroll-target="#grr-table">GRR table</a></li>
+  <li><a href="#effective-resolution" id="toc-effective-resolution" class="nav-link" data-scroll-target="#effective-resolution">Effective resolution</a></li>
+  <li><a href="#limits-for-average-values-and-ranges" id="toc-limits-for-average-values-and-ranges" class="nav-link" data-scroll-target="#limits-for-average-values-and-ranges">Limits for average values and ranges</a></li>
+  </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#appendix-a" id="toc-appendix-a" class="nav-link" data-scroll-target="#appendix-a">Appendix A</a>
+  <ul class="collapse">
+  <li><a href="#graphs-for-average-values" id="toc-graphs-for-average-values" class="nav-link" data-scroll-target="#graphs-for-average-values">Graphs for average values</a></li>
+  <li><a href="#graphs-for-ranges" id="toc-graphs-for-ranges" class="nav-link" data-scroll-target="#graphs-for-ranges">Graphs for ranges</a></li>
+  </ul></li>
+  <li><a href="#appendix-b" id="toc-appendix-b" class="nav-link" data-scroll-target="#appendix-b">Appendix B</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="problem-to-solve" class="level1">
+<h1>Problem to solve</h1>
+<p>The problem is about how precise a Vickers hardness measurement system is. Here, precision means repeatability and reproducibility.</p>
+<p><strong>Repeatability</strong> is the variability due to the instrument. It is the variability observed when the same operator measures the same quantity repeatedly with the same instrument.</p>
+<p><strong>Reproducibility</strong> is the variability due to the operator (appraiser) and the interaction between the operator (appraiser) and the object being measured. It is the variability observed when different appraisers measure the same parts with the same instrument.</p>
+<p>The total variability introduced by repeatability and reproducibility, expressed as a percentage of the variability of a process or measurement range, is described by the so-called %GRR (<strong>%Gage Repeatability &amp; Reproducibility</strong>), a measure of the precision of a measurement system.</p>
+<section id="measurement-system" class="level3">
+<h3 class="anchored" data-anchor-id="measurement-system">Measurement system</h3>
+<p>A measurement system is an arrangement of the following factors:</p>
+<ul>
+<li>the measurand and its range of variation,</li>
+<li>the method of measurement,</li>
+<li>the measurement procedure,</li>
+<li>a measuring instrument or device and other accessories,</li>
+<li>the measurement environment,</li>
+<li>the operator (appraiser) or operators (appraisers).</li>
+</ul>
+<p>In order to diagnose the actual state of the measurement system, the measurements should be performed under the same conditions as the actual ones, in the same way and by the same operators. The measurements are organised and carried out by the GRR test supervisor, who should not participate directly in the measurements.</p>
+</section>
+<section id="method-of-solution" class="level3">
+<h3 class="anchored" data-anchor-id="method-of-solution">Method of solution</h3>
+<p>The use of analysis of variance (ANOVA) methods in precision testing allows an accurate assessment of which factor and to what extent is responsible for the variability in measurement results. In addition to repeatability and reproducibility, the variability in measurement results is introduced by the objects (parts) being measured and this should account for the vast majority of the variability observed in the measurements.</p>
+<p>Hardness measurements are unique (destructive), so different operators cannot measure the same spots on objects exactly. This means they are nested within each operator. In nested systems, there is no interaction between the operator and the objects being measured. An analysis of variance for nested systems has been used to analyze this.</p>
+<p>The analysis is based on:</p>
+<ol type="1">
+<li><p>MEASUREMENT SYSTEMS ANALYSIS. Reference Manual. Fourth Edition, 2010, Chrysler Group LLC, Ford Motor Company, General Motors Corporation</p></li>
+<li><p>Donald J. Wheeler, An honest Gauge R&amp;R Study, 2006 ASQ/ASA Fall Technical Conference, Manuscript No.&nbsp;189</p></li>
+<li><p><a href="https://www.itl.nist.gov/div898/handbook/ppc/section2/ppc233.htm" class="uri">https://www.itl.nist.gov/div898/handbook/ppc/section2/ppc233.htm</a></p></li>
+</ol>
+</section>
+<section id="acceptance-criteria-for-measurement-systems-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="acceptance-criteria-for-measurement-systems-analysis">Acceptance criteria for measurement systems analysis</h3>
+<p>The AIAG criteria, with adjustment for total variance as the reference level, were used based on how the problem was solved:</p>
+<ul>
+<li>%GRR &lt; 1% - high measurement system capability,</li>
+<li>1% &lt; %GRR &lt; 9% - conditionally acceptable measurement system,</li>
+<li>%GRR &gt; 9% - unacceptable measurement system.</li>
+</ul>
+<p>Another indicator of the measurement system is the so-called effective resolution of the measurement system <span class="math inline">\(ndc\)</span> (number of distinct categories), calculated in classical GRR analysis as follows:</p>
+<p><span class="math inline">\(ndc= \sqrt{2} \frac{σ_{Part(Appraiser)}}{σ_{GRR}}\)</span>,</p>
+<p>where <span class="math inline">\(σ_{Part(Appraiser)}\)</span> is standard deviation of the part nested in appraiser and <span class="math inline">\(σ_{GRR}\)</span> means standard deviation due to GRR. The effective resolution of the measurement system is the number of different categories that the measurement system can reliably differentiate, calculated as the number of non-overlapping intervals with approximately 97% confidence. It examines the ability of the measurement system to detect differences between samples.</p>
+<p>The following criterion for <span class="math inline">\(ndc\)</span> is commonly used:</p>
+<ul>
+<li><span class="math inline">\(ndc\)</span> &gt; 5 - resolution is adequate,</li>
+<li>2 &lt; <span class="math inline">\(ndc\)</span> &lt; 5 - very low resolution of the system;</li>
+<li><span class="math inline">\(ndc\)</span> &lt; 2 - unacceptable resolution.</li>
+</ul>
+<p>In the modern analysis of measurement systems, called EMP (Evaluating the Measurement Process), the AIAG criteria are considered too conservative. EMP proposes a criterion of system capability based on the <span class="math inline">\(ICC\)</span> (Intraclass Correlation Coefficient), defined as follows:</p>
+<p><span class="math inline">\(ICC= \frac{({σ_{Part(Appraiser)}})^2}{TV}\)</span> ,</p>
+<p>where <span class="math inline">\(TV\)</span> means the total variance. The <span class="math inline">\(ICC\)</span> describes what part of the total variance is the variance describing the variability of the measured objects. The <span class="math inline">\(ICC\)</span> coefficient value is the basis for the classification of the system in accordance with the Table 7.</p>
+<p>In the EMP approach, the probable error can be treated as a measure of the precision of the measurement system. The probable error can be calculated as</p>
+<p><span class="math inline">\(PE = 0.675\   GRR\)</span>,</p>
+<p>where GRR is the estimated standard deviation of the measurement system.</p>
+<p>All calculations were performed in R (RStudio).</p>
+</section>
+</section>
+<section id="packages-used" class="level1">
+<h1>Packages used</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(magnittr)) {<span class="fu">install.packages</span>(<span class="st">'magnittr'</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">repos=</span><span class="st">"http://cran.us.r-project.org"</span>); </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">require</span>(magnittr)}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(knitr)) {<span class="fu">install.packages</span>(<span class="st">'knitr'</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">repos=</span><span class="st">"http://cran.us.r-project.org"</span>);</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">require</span>(knitr)}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(kableExtra)) {<span class="fu">install.packages</span>(<span class="st">'kableExtra'</span>, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">repos=</span><span class="st">"http://cran.us.r-project.org"</span>); </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">require</span>(kableExtra)}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(ggplot2)) {<span class="fu">install.packages</span>(<span class="st">'ggplot2'</span>, </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">repos=</span><span class="st">"http://cran.us.r-project.org"</span>); </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">require</span>(ggplot2)}</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(plotrix)) {<span class="fu">install.packages</span>(<span class="st">'plotrix'</span>, </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                        <span class="at">repos=</span><span class="st">"http://cran.us.r-project.org"</span>); </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">require</span>(plotrix)}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(car)) {<span class="fu">install.packages</span>(<span class="st">'car'</span>, </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                        <span class="at">repos=</span><span class="st">"http://cran.us.r-project.org"</span>); </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">require</span>(car)}</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(grid)) {<span class="fu">install.packages</span>(<span class="st">'grid'</span>, </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                        <span class="at">repos=</span><span class="st">"http://cran.us.r-project.org"</span>); </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">require</span>(grid)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="results-of-measurements" class="level1">
+<h1>Results of measurements</h1>
+<section id="reading-data" class="level3">
+<h3 class="anchored" data-anchor-id="reading-data">Reading data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>appraiser_A <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"Appraiser_AAA.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>appraiser_B <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"Appraiser_BBB.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>appraiser_C <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"Appraiser_CCC.csv"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(appraiser_A) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Trial1:"</span>,<span class="st">"Trial2:"</span>,<span class="st">"Trial3:"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(appraiser_B) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Trial1:"</span>,<span class="st">"Trial2:"</span>,<span class="st">"Trial3:"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(appraiser_C) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Trial1:"</span>,<span class="st">"Trial2:"</span>,<span class="st">"Trial3:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The Vickers hardness scale is very wide, from about 100HV to over 900HV. Ten parts were selected to test the measurement system. The three operators did three trials each. The measurement results are presented below.</p>
+<div class="cell">
+<div id="tbl-1" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Measurements (HV) of Appraiser A
+</figcaption>
+<div aria-describedby="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part1</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part2</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part3</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part4</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part5</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part6</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part7</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part8</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part9</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Trial1:</td>
+<td style="text-align: left;">255.93</td>
+<td style="text-align: left;">275.63</td>
+<td style="text-align: left;">315.20</td>
+<td style="text-align: left;">331.83</td>
+<td style="text-align: left;">519.73</td>
+<td style="text-align: left;">580.20</td>
+<td style="text-align: left;">591.50</td>
+<td style="text-align: left;">720.53</td>
+<td style="text-align: left;">750.47</td>
+<td style="text-align: left;">821.23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trial2:</td>
+<td style="text-align: left;">238.23</td>
+<td style="text-align: left;">271.77</td>
+<td style="text-align: left;">310.03</td>
+<td style="text-align: left;">337.83</td>
+<td style="text-align: left;">521.17</td>
+<td style="text-align: left;">571.93</td>
+<td style="text-align: left;">598.97</td>
+<td style="text-align: left;">708.07</td>
+<td style="text-align: left;">755.40</td>
+<td style="text-align: left;">849.73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trial3:</td>
+<td style="text-align: left;">258.87</td>
+<td style="text-align: left;">311.36</td>
+<td style="text-align: left;">330.25</td>
+<td style="text-align: left;">376.13</td>
+<td style="text-align: left;">538.28</td>
+<td style="text-align: left;">604.50</td>
+<td style="text-align: left;">617.76</td>
+<td style="text-align: left;">753.34</td>
+<td style="text-align: left;">773.23</td>
+<td style="text-align: left;">820.12</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div id="tbl-2" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Measurements (HV) of Appraiser B
+</figcaption>
+<div aria-describedby="tbl-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part1</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part2</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part3</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part4</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part5</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part6</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part7</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part8</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part9</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Trial1:</td>
+<td style="text-align: left;">286.20</td>
+<td style="text-align: left;">296.50</td>
+<td style="text-align: left;">294.23</td>
+<td style="text-align: left;">325.43</td>
+<td style="text-align: left;">524.70</td>
+<td style="text-align: left;">538.53</td>
+<td style="text-align: left;">670.37</td>
+<td style="text-align: left;">722.83</td>
+<td style="text-align: left;">738.80</td>
+<td style="text-align: left;">829.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trial2:</td>
+<td style="text-align: left;">286.28</td>
+<td style="text-align: left;">306.10</td>
+<td style="text-align: left;">314.45</td>
+<td style="text-align: left;">360.12</td>
+<td style="text-align: left;">534.32</td>
+<td style="text-align: left;">578.34</td>
+<td style="text-align: left;">630.39</td>
+<td style="text-align: left;">742.87</td>
+<td style="text-align: left;">752.81</td>
+<td style="text-align: left;">859.89</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trial3:</td>
+<td style="text-align: left;">316.24</td>
+<td style="text-align: left;">316.56</td>
+<td style="text-align: left;">324.43</td>
+<td style="text-align: left;">355.25</td>
+<td style="text-align: left;">554.72</td>
+<td style="text-align: left;">570.67</td>
+<td style="text-align: left;">650.21</td>
+<td style="text-align: left;">732.27</td>
+<td style="text-align: left;">768.56</td>
+<td style="text-align: left;">859.45</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div id="tbl-3" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Measurements (HV) of Appraiser C
+</figcaption>
+<div aria-describedby="tbl-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part1</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part2</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part3</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part4</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part5</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part6</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part7</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part8</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part9</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Part10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Trial1:</td>
+<td style="text-align: left;">140.20</td>
+<td style="text-align: left;">160.50</td>
+<td style="text-align: left;">210.23</td>
+<td style="text-align: left;">219.43</td>
+<td style="text-align: left;">388.70</td>
+<td style="text-align: left;">432.53</td>
+<td style="text-align: left;">534.37</td>
+<td style="text-align: left;">586.83</td>
+<td style="text-align: left;">672.80</td>
+<td style="text-align: left;">753.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trial2:</td>
+<td style="text-align: left;">151.21</td>
+<td style="text-align: left;">152.58</td>
+<td style="text-align: left;">201.17</td>
+<td style="text-align: left;">200.79</td>
+<td style="text-align: left;">368.18</td>
+<td style="text-align: left;">448.62</td>
+<td style="text-align: left;">554.24</td>
+<td style="text-align: left;">596.79</td>
+<td style="text-align: left;">652.10</td>
+<td style="text-align: left;">750.36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trial3:</td>
+<td style="text-align: left;">130.56</td>
+<td style="text-align: left;">138.68</td>
+<td style="text-align: left;">178.89</td>
+<td style="text-align: left;">185.98</td>
+<td style="text-align: left;">381.81</td>
+<td style="text-align: left;">449.62</td>
+<td style="text-align: left;">554.46</td>
+<td style="text-align: left;">579.39</td>
+<td style="text-align: left;">642.27</td>
+<td style="text-align: left;">723.61</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="measurements" class="level3">
+<h3 class="anchored" data-anchor-id="measurements">Measurements</h3>
+<p>Figure 1 shows all measurements. Figure 2 shows the average for each part obtained by each appraiser.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Measurements by Parts</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Measurements by Appraisers
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="anova-analysis" class="level1">
+<h1>ANOVA analysis</h1>
+<p>Anova for nested measurements was used to solve the problem. The result is presented in the ANOVA table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> measurement <span class="sc">~</span> Appraiser <span class="sc">+</span> Appraiser<span class="sc">:</span>Part,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> measurements)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>anov <span class="ot">&lt;-</span> <span class="fu">Anova</span>(model, <span class="at">type =</span> <span class="st">"II"</span>)          </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>anov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Anova Table (Type II tests)
+
+Response: measurement
+                Sum Sq Df F value    Pr(&gt;F)    
+Appraiser       311774  2  647.36 &lt; 2.2e-16 ***
+Appraiser:Part 3753853 27  577.37 &lt; 2.2e-16 ***
+Residuals        14448 60                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<section id="anova-table" class="level3">
+<h3 class="anchored" data-anchor-id="anova-table">ANOVA table</h3>
+<p>The F column of the ANOVA table (Table 4) contains the Snedecor statistic for comparisons against the MSS for repeatability. The <span class="math inline">\(p\)</span> column shows the significance level against this quantity. The first value in column F1 represents the ratio of MSS for Appraiser and MSS for Part(Appraiser). Consequently, <span class="math inline">\(p1\)</span> represents the significance level attributed to the Appraiser in comparison to the Part.</p>
+<div class="cell">
+<div id="tbl-6" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: ANOVA Table
+</figcaption>
+<div aria-describedby="tbl-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Source</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">df</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SS</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">MSS</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">F</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p[%]</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">F1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p1[%]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MSO</td>
+<td style="text-align: left;">Appraiser</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">311773.96</td>
+<td style="text-align: right;">155886.9776</td>
+<td style="text-align: right;">647.36</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">34.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MSP(O)</td>
+<td style="text-align: left;">Part(Appraiser)</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">3753852.72</td>
+<td style="text-align: right;">139031.5824</td>
+<td style="text-align: right;">577.37</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">577.37</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MSE</td>
+<td style="text-align: left;">Repeatability</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">14448.15</td>
+<td style="text-align: right;">240.8024</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SST</td>
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">4080074.83</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="grr-table" class="level3">
+<h3 class="anchored" data-anchor-id="grr-table">GRR table</h3>
+<p>Table 5 (GRR table) shows the variance (var), the standard deviation (sig) and the percentage of the total variance (%var) for each of the components of total variance. The graphical representation can be seen in the following Figure 3. Figure 4 shows the percentage of GRR components.</p>
+<div class="cell">
+<div id="tbl-7" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: GRR Table
+</figcaption>
+<div aria-describedby="tbl-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">var</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sig</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">6sig</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%6sig</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%var</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Repeatability</td>
+<td style="text-align: right;">240.80</td>
+<td style="text-align: right;">15.52</td>
+<td style="text-align: right;">93.11</td>
+<td style="text-align: right;">7.15</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reproducibility</td>
+<td style="text-align: right;">561.85</td>
+<td style="text-align: right;">23.70</td>
+<td style="text-align: right;">142.22</td>
+<td style="text-align: right;">10.93</td>
+<td style="text-align: right;">1.19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GRR</td>
+<td style="text-align: right;">802.65</td>
+<td style="text-align: right;">28.33</td>
+<td style="text-align: right;">169.99</td>
+<td style="text-align: right;">13.06</td>
+<td style="text-align: right;">1.71</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Part(Appraiser)</td>
+<td style="text-align: right;">46263.59</td>
+<td style="text-align: right;">215.09</td>
+<td style="text-align: right;">1290.54</td>
+<td style="text-align: right;">99.14</td>
+<td style="text-align: right;">98.29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">47066.24</td>
+<td style="text-align: right;">216.95</td>
+<td style="text-align: right;">1301.69</td>
+<td style="text-align: right;">100.00</td>
+<td style="text-align: right;">100.00</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-5" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-5-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Contribution to total variance
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-4" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-4-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Contribution to GRR
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="effective-resolution" class="level3">
+<h3 class="anchored" data-anchor-id="effective-resolution">Effective resolution</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ndc <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">2</span>) <span class="sc">*</span> GRR_table[<span class="dv">4</span>,<span class="dv">2</span>]<span class="sc">/</span>GRR_table[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ICC <span class="ot">&lt;-</span> GRR_table[<span class="dv">4</span>,<span class="dv">1</span>]<span class="sc">/</span>GRR_table[<span class="dv">5</span>,<span class="dv">1</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>PE <span class="ot">&lt;-</span> <span class="fl">0.675</span><span class="sc">*</span>GRR_table[<span class="dv">3</span>,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of distinct categories:
+ndc =  13</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Intraclass correlation coefficient:
+ICC =  0.983</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Probable error:
+PE =  19</code></pre>
+</div>
+</div>
+</section>
+<section id="limits-for-average-values-and-ranges" class="level3">
+<h3 class="anchored" data-anchor-id="limits-for-average-values-and-ranges">Limits for average values and ranges</h3>
+<p>The limits in the Table 6 were determined using Table 8 as in the classical GRR analysis. UCL means upper control limit, CL - center line, LCL - lower control limit.</p>
+<div class="cell">
+<div id="tbl-41" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-41-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Control limits
+</figcaption>
+<div aria-describedby="tbl-41-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">UCL</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">CL</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">LCL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Limits for average values:</td>
+<td style="text-align: right;">517</td>
+<td style="text-align: right;">488</td>
+<td style="text-align: right;">459</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Limits for ranges:</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+<p>From the ANOVA table it can be concluded that both the variability introduced by the appraisers and the variability introduced by the parts are statistically significant compared to the variability due to repeatability (residuals or repeatability in the ANOVA table), since the probabilities <span class="math inline">\(p\)</span> are much lower than 0.05, practically equal to zero. Table 4 shows that the appraiser introduced variability is not statistically significant compared to the variability due to the parts (<span class="math inline">\(p\)</span> &gt; 0.05), whose share in the total variability is equal to 98.29% (Fig. 3).</p>
+<p>The share of GRR in the total variability is 1.71%, so according to the AIAG criterion the measurement system can be considered as conditionally acceptable, but according to the EMP approach <span class="math inline">\(ICC\)</span> = 0.983, which means that the measurement system is in the I class (Table 7).</p>
+<p>The <span class="math inline">\(ndc\)</span> (number of distinct categories) factor is equal to 13, which means that the tested Vickers hardness measurement system is capable of distinguishing 13 measurement ranges in the entire available scale.</p>
+<p>The probable error PE, calculated using the EMP approach, is approximately 20HV. This value can be considered as the effective resolution of the measurement system.</p>
+<p>The most important part of the GRR is the reproducibility (70%). This means that the operator variability is too high. From the graphs in Appendix A it can be seen that the measurements made by Operator C are significantly lower than those of Operators A and B. The situation should be analysed and perhaps additional training should be proposed to reduce the differences.</p>
+<p>The Range graphs are almost the same for all operators. There are no significant differences. All Ranges are between the LCL and UCL limits. The process of measurement is consistent and predictable.</p>
+<p>The range between the LCL and UCL on the Mean charts in Figures 5, 6 and 7 represents the measurement error. All points on the Mean charts are outside the control limits. This means that the measurements are very good and not masked by measurement error.</p>
+</section>
+<section id="appendix-a" class="level1">
+<h1>Appendix A</h1>
+<section id="graphs-for-average-values" class="level3">
+<h3 class="anchored" data-anchor-id="graphs-for-average-values">Graphs for average values</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-6" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-6-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Mean by Parts
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-7" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-7-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Mean by Appraisers
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-8" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-8-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Mean by Parts and Appraisers
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="graphs-for-ranges" class="level3">
+<h3 class="anchored" data-anchor-id="graphs-for-ranges">Graphs for ranges</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-9" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-9-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Range by Parts
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-10" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-10-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Range by Appraisers
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-11" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-11-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Range by Parts and Appraisers
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="appendix-b" class="level1">
+<h1>Appendix B</h1>
+<div class="cell">
+<div id="tbl-44" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-44-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7: EMP III
+</figcaption>
+<div aria-describedby="tbl-44-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">ICC</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Class of the system</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Attenuation of proces signal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.8 - 1.0</td>
+<td style="text-align: center;">I</td>
+<td style="text-align: center;">&lt; 10%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.5 - 0.8</td>
+<td style="text-align: center;">II</td>
+<td style="text-align: center;">10% - 30%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.2 - 0.5</td>
+<td style="text-align: center;">III</td>
+<td style="text-align: center;">30% - 55%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.0 - 0.2</td>
+<td style="text-align: center;">IV</td>
+<td style="text-align: center;">&gt;55%</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div id="tbl-5" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8: Control limits factors
+</figcaption>
+<div aria-describedby="tbl-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">kk</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">A2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">D3</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">D4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.880</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">3.267</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.023</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">2.575</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.729</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">2.282</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.577</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">2.115</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.483</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">2.004</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.419</td>
+<td style="text-align: right;">0.076</td>
+<td style="text-align: right;">1.924</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.373</td>
+<td style="text-align: right;">0.136</td>
+<td style="text-align: right;">1.864</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.337</td>
+<td style="text-align: right;">0.184</td>
+<td style="text-align: right;">1.816</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.308</td>
+<td style="text-align: right;">0.223</td>
+<td style="text-align: right;">1.777</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
